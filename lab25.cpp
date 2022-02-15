@@ -30,6 +30,90 @@ ComplexNumber ComplexNumber::operator-(const ComplexNumber &c){
 
 //Write your code here
 
+ComplexNumber ComplexNumber::operator*(const ComplexNumber &c)
+{
+	double REAL,IMAG;
+	REAL = (real*c.real) - (imag*c.imag);
+	IMAG = (real*c.imag) + (imag*c.real);
+	return ComplexNumber(REAL,IMAG);
+}
+
+ComplexNumber ComplexNumber::operator/(const ComplexNumber &c)
+{
+	double REAL,IMAG;
+	REAL = ((real*c.real) + (imag*c.imag))/((c.real*c.real) + (c.imag*c.imag));
+	IMAG = ((imag*c.real) - (real*c.imag))/((c.real*c.real) + (c.imag*c.imag));
+	return ComplexNumber(REAL,IMAG);
+}
+
+ComplexNumber operator+(double s, const ComplexNumber &c)
+{
+	return ComplexNumber(s+c.real,c.imag);
+}
+
+ComplexNumber operator-(double s, const ComplexNumber &c)
+{
+	return ComplexNumber(s-c.real,-c.imag);
+}
+
+ComplexNumber operator*(double s, const ComplexNumber &c)
+{
+	double REAL,IMAG;
+	REAL = (s*c.real) - (0*c.imag);
+	IMAG = (s*c.imag) + (0*c.real);
+	return ComplexNumber(REAL,IMAG);
+}
+
+ComplexNumber operator/(double s, const ComplexNumber &c)
+{
+	double REAL,IMAG;
+	REAL = ((s*c.real) + (0*c.imag))/((c.real*c.real) + (c.imag*c.imag));
+	IMAG = ((0*c.real) - (s*c.imag))/((c.real*c.real) + (c.imag*c.imag));
+	return ComplexNumber(REAL,IMAG);
+}
+
+double ComplexNumber::abs()
+{
+	double z = 0;
+	z = sqrt(pow(real,2) + pow(imag,2));
+	return z;
+}
+
+double ComplexNumber::angle()
+{
+	double z = 0;
+	z = (atan2(imag,real)*180)/M_PI;
+	return z;
+}
+
+bool ComplexNumber::operator==(const ComplexNumber &c)
+{
+	if(real == c.real && imag == c.imag)
+	return true;
+	else return false; 
+}
+
+bool operator==(double s, const ComplexNumber &c)
+{
+	if(s == c.real && 0 == c.imag)
+	return true;
+	else return false;
+}
+
+ostream & operator<<(ostream &OSTREAM, const ComplexNumber &c)
+{
+	if(c.real == 0 && c.imag == 0)
+		return OSTREAM << 0;
+	else if(c.real == 0)
+		return OSTREAM << c.imag << "i";
+	else if(c.imag == 0)
+		return OSTREAM << c.real;
+	else if(c.imag > 0)
+		return OSTREAM << c.real << "+" << c.imag << "i";
+	else 
+		return OSTREAM << c.real << c.imag << "i";
+}
+
 int main(){
 	ComplexNumber a(1.5,2),b(3.2,-2.5),c(-1,1.2);	
 	cout << a << "\n";
